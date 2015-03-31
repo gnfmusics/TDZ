@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Welten()
+comment0.text=\n\ Constructor\ for\ objects\ of\ class\ Welten.\n\ \n
+comment1.params=a\ b
+comment1.target=void\ welt1(int,\ int)
+comment10.params=
+comment10.target=void\ prepare()
+comment10.text=\n\ Prepare\ the\ world\ for\ the\ start\ of\ the\ program.\ That\ is\:\ create\ the\ initial\n\ objects\ and\ add\ them\ to\ the\ world.\n
+comment2.params=
+comment2.target=void\ welt2()
+comment3.params=a\ b
+comment3.target=void\ welt3(int,\ int)
+comment4.params=a\ b
+comment4.target=void\ welt4(int,\ int)
+comment5.params=a\ b
+comment5.target=void\ welt5(int,\ int)
+comment6.params=a\ b
+comment6.target=void\ welt6(int,\ int)
+comment7.params=a\ b
+comment7.target=void\ welt7(int,\ int)
+comment8.params=a\ b
+comment8.target=void\ welt8(int,\ int)
+comment9.params=a\ b
+comment9.target=void\ welt9(int,\ int)
+numComments=11
