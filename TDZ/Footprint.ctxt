@@ -1,7 +1,8 @@
 #BlueJ class context
 comment0.params=rotation
 comment0.target=Footprint(int)
-comment0.text=\r\n\ Act\ -\ do\ whatever\ the\ Footprint\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment0.text=\n\ Act\ -\ do\ whatever\ the\ Footprint\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
 comment1.params=
 comment1.target=void\ act()
+comment1.text=\n\ Act\ Methode,\ wird\ kontinuierlich\ aufgerufen.\ Bei\ jedem\ Aufruf\ wird\ ein\ Counter\ hochgezaehlt,\n\ ueber\ den\ bestimmt\ wird,\ wann\ der\ Fussabdruck\ wieder\ entfernt\ wird.\n\ Um\ einen\ zeitlichen\ Abstand\ zu\ erhalten,\ wird\ ein\ Modulo\ auf\ den\ Counter\ verwendet.\ Ergibt\ \n\ dieser\ 0,\ wird\ das\ entsprechende\ Objekt\ aus\ der\ Welt\ geloescht.\n
 numComments=2

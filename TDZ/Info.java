@@ -18,11 +18,10 @@ public class Info extends Actor
         // Add your action code here.
     }    
     
-    public void schreibeInfo()
-    {
-        GreenfootImage image = getImage();
-        image.clear();
-        image.setColor(Color.RED);
-        image.drawString("Ich bin mittlerweile so weit, dass die ganze Map betreten werden kann.", 10, 10);
+    public void schreibeInfo(){
+    //    GreenfootImage image = getImage();
+    //    image.clear();
+    //    image.setColor(Color.RED);
+    //    image.drawString("Ich bin mittlerweile so weit, dass die ganze Map betreten werden kann.", 10, 10);
     }
 }

@@ -226,8 +226,12 @@ public class Welten extends World
         
         
         //HIER OBJEKTE FÜR WELT
-        Fels fels = new Fels();
-        addObject(fels, 100, 402);
+       
+        for(int h = (weltH-abstand); h > -abstand; h = h - 55) 
+        {
+            addObject(new Fels(), abstand, h);
+            
+        }
         //HIER OBJEKTE FÜR WELT
         
         //muss als letztes (Vordergrund)
@@ -295,8 +299,11 @@ public class Welten extends World
         
         
         //HIER OBJEKTE FÜR WELT
-        Fels fels = new Fels();
-        addObject(fels, 1327, 396);
+        for(int h = (weltH-abstand); h > -abstand; h = h - 55) 
+        {
+            addObject(new Fels(), weltW-abstand, h);
+            
+        }
         //HIER OBJEKTE FÜR WELT
         
         //muss als letztes (Vordergrund)
@@ -363,8 +370,11 @@ public class Welten extends World
         
         
         //HIER OBJEKTE FÜR WELT
-        Fels fels2 = new Fels();
-        addObject(fels2, 709, 729);
+        for(int w = (weltW-abstand); w > -abstand; w = w - 55) 
+        {
+            addObject(new Fels(), w, weltH-abstand);
+            
+        }
         //HIER OBJEKTE FÜR WELT
         
         //muss als letztes (Vordergrund)
