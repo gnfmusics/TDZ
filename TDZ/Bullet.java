@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Bullet extends Actor
 {
-    public int speed = 7;
+    public int speed = 10;
     
     public Bullet(int rotation)
     {
@@ -41,6 +41,10 @@ public class Bullet extends Actor
             getWorld().removeObject(this);
         }
         else if(getY() < 1)
+        {
+            getWorld().removeObject(this);
+        } 
+        else if(getOneIntersectingObject(Fels.class) != null)
         {
             getWorld().removeObject(this);
         }

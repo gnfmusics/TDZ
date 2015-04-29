@@ -10,6 +10,9 @@ public class Zombie extends Actor
 {
     
     public int speed = 1;
+    public int leben = 2; //wie oft getroffen werden muss
+    public int coolRange = 50;
+    public boolean lebenAbziehen = true;
     
     
     /**
@@ -33,10 +36,17 @@ public class Zombie extends Actor
     {
         Actor bullet = getOneIntersectingObject(Bullet.class);
         
-        if(bullet != null)
+        if(bullet != null )
         {
-            getWorld().removeObject(bullet);
-            getWorld().removeObject(this);
+            if (leben <= 1)
+            {
+                getWorld().removeObject(bullet);
+                getWorld().removeObject(this); //
+                lebenAbziehen = true;
+            } else {
+                getWorld().removeObject(bullet);
+                leben = leben - 1;
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Survivor extends Actor
 {
-    public int speed = 3;
+    public int speed = 10;
     public int mouseX, mouseY;
     public int frame = 1;
     public int animationCounter = 0;
@@ -16,8 +16,16 @@ public class Survivor extends Actor
     public int coolRange = 100;
     public int neuX;
     public int neuY;
+    public int ammo = 0;
+    public int bullets = 0;
+    public int aktuelleWelt = 5;
+    public boolean fire = false;
+    
+    
     
     public static int survivorX, survivorY;
+    
+    int collisionCountdown = 0;
     
     
     GreenfootImage sur1 = new GreenfootImage("sur1.png");
@@ -45,6 +53,8 @@ public class Survivor extends Actor
         mouse();
         shoot();
         weltWechseln();
+        footprint();
+        reload();
         
         
         survivorX = getX();
@@ -52,6 +62,17 @@ public class Survivor extends Actor
         survivorRotation = getRotation();
         
         animationCounter += 1;
+        
+
+        
+        if( collisionCountdown > 0 )
+        {
+            collisionCountdown--;
+        }
+        else
+        {
+            handleCollisions();
+        }
        
     }    
     
@@ -163,7 +184,24 @@ public class Survivor extends Actor
         {
             if(Greenfoot.getMouseInfo().getButton() == 1 && getObjectsInRange(coolRange, Bullet.class).isEmpty())
             {
-                getWorld().addObject(new Bullet(survivorRotation), getX(), getY());
+                if (bullets > 0)
+                {
+                    if(Greenfoot.mousePressed(null) == true)
+                    {
+                        fire = true;
+                    }else if((Greenfoot.mouseClicked(null) == true))
+                    {
+                        fire = false;
+                    }
+                    if (fire == true)
+                    {
+                        getWorld().addObject(new Bullet(survivorRotation), getX(), getY());
+                        bullets = bullets - 1;
+                        ((Welten) getWorld()).updateAmmo(ammo, bullets);
+                    }
+                } else {
+                    //leer-sound abspielen
+                }
                 
             }
         }
@@ -171,6 +209,238 @@ public class Survivor extends Actor
     
     public void weltWechseln()
     {
+        switch (aktuelleWelt)
+        {
+            case 1:
+                //code hier
+                
+                if (getY() > (getWorld().getHeight() - 40)) //UNTEN
+                {
+                    neuX = survivorX;
+                    neuY = 50;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt4();
+                    aktuelleWelt = 4;
+                } else if (getX() > (getWorld().getWidth() - 40)) //RECHTS
+                {
+                    neuX = 50;
+                    neuY = survivorY;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt2();
+                    aktuelleWelt = 2;
+                }
+                
+                break;
+            case 2:
+                //code hier
+                
+                if (getY() > (getWorld().getHeight() - 40)) //UNTEN
+                {
+                    neuX = survivorX;
+                    neuY = 50;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt5();
+                    aktuelleWelt = 5;
+                } else if (getX() < 40) //LINKS
+                {
+                    neuX = getWorld().getWidth() - 50;
+                    neuY = survivorY;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt1();
+                    aktuelleWelt = 1;
+                } else if (getX() > (getWorld().getWidth() - 40)) //RECHTS
+                {
+                    neuX = 50;
+                    neuY = survivorY;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt3();
+                    aktuelleWelt = 3;
+                }
+                
+                break;
+            case 3:
+                //code hier
+                
+                if (getY() > (getWorld().getHeight() - 40)) //UNTEN
+                {
+                    neuX = survivorX;
+                    neuY = 50;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt6();
+                    aktuelleWelt = 6;
+                } else if (getX() < 40) //LINKS
+                {
+                    neuX = getWorld().getWidth() - 50;
+                    neuY = survivorY;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt2();
+                    aktuelleWelt = 2;
+                }
+                
+                break;
+            case 4:
+                //code hier
+                if(getY() < 40 ) //OBEN
+                {
+                    neuX = survivorX;
+                    neuY = getWorld().getHeight() - 50;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt1();
+                    aktuelleWelt = 1;
+                } else if (getY() > (getWorld().getHeight() - 40)) //UNTEN
+                {
+                    neuX = survivorX;
+                    neuY = 50;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt7();
+                    aktuelleWelt = 7;
+                } else if (getX() > (getWorld().getWidth() - 40)) //RECHTS
+                {
+                    neuX = 50;
+                    neuY = survivorY;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt5();
+                    aktuelleWelt = 5;
+                }
+                
+                break;
+            case 5:
+                //code hier
+                if(getY() < 40 ) //OBEN
+                {
+                    neuX = survivorX;
+                    neuY = getWorld().getHeight() - 50;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt2();
+                    aktuelleWelt = 2;
+                } else if (getY() > (getWorld().getHeight() - 40)) //UNTEN
+                {
+                    neuX = survivorX;
+                    neuY = 50;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt8();
+                    aktuelleWelt = 8;
+                } else if (getX() < 40) //LINKS
+                {
+                    neuX = getWorld().getWidth() - 50;
+                    neuY = survivorY;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt4();
+                    aktuelleWelt = 4;
+                } else if (getX() > (getWorld().getWidth() - 40)) //RECHTS
+                {
+                    neuX = 50;
+                    neuY = survivorY;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt6();
+                    aktuelleWelt = 6;
+                }
+                
+                
+                
+                break;
+            case 6:
+                //code hier
+                
+                if(getY() < 40 ) //OBEN
+                {
+                    neuX = survivorX;
+                    neuY = getWorld().getHeight() - 50;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt3();
+                    aktuelleWelt = 3;
+                } else if (getY() > (getWorld().getHeight() - 40)) //UNTEN
+                {
+                    neuX = survivorX;
+                    neuY = 50;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt9();
+                    aktuelleWelt = 9;
+                } else if (getX() < 40) //LINKS
+                {
+                    neuX = getWorld().getWidth() - 50;
+                    neuY = survivorY;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt5();
+                    aktuelleWelt = 5;
+                }
+                
+                break;
+            case 7:
+                //code hier
+                
+                if(getY() < 40 ) //OBEN
+                {
+                    neuX = survivorX;
+                    neuY = getWorld().getHeight() - 50;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt4();
+                    aktuelleWelt = 4;
+                } else if (getX() > (getWorld().getWidth() - 40)) //RECHTS
+                {
+                    neuX = 50;
+                    neuY = survivorY;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt8();
+                    aktuelleWelt = 8;
+                }
+                
+                break;
+            case 8:
+                //code hier
+                
+                if(getY() < 40 ) //OBEN
+                {
+                    neuX = survivorX;
+                    neuY = getWorld().getHeight() - 50;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt5();
+                    aktuelleWelt = 5;
+                } else if (getX() < 40) //LINKS
+                {
+                    neuX = getWorld().getWidth() - 50;
+                    neuY = survivorY;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt7();
+                    aktuelleWelt = 7;
+                } else if (getX() > (getWorld().getWidth() - 40)) //RECHTS
+                {
+                    neuX = 50;
+                    neuY = survivorY;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt9();
+                    aktuelleWelt = 9;
+                }
+                
+                break;
+            case 9:
+                //code hier
+                
+                if(getY() < 40 ) //OBEN
+                {
+                    neuX = survivorX;
+                    neuY = getWorld().getHeight() - 50;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt6();
+                    aktuelleWelt = 6;
+                } else if (getX() < 40) //LINKS
+                {
+                    neuX = getWorld().getWidth() - 50;
+                    neuY = survivorY;
+                    setLocation(neuX, neuY);
+                    ((Welten) getWorld()).welt8();
+                    aktuelleWelt = 8;
+                }
+                
+                break;
+            default:
+                //nur ausgeführt wenn es probleme mit aktuelleWelt gibt
+                System.out.println("PROBLEM MIT aktuelleWelt");
+        }
+        
+        
+        
+        /* test Code zum oben rauslaufen
         if(getY() < 40 )
         {
             neuX = survivorX;
@@ -178,5 +448,49 @@ public class Survivor extends Actor
             setLocation(neuX, neuY);
             ((Welten) getWorld()).welt2();
         }
+        */
+    }
+    
+    private void handleCollisions()
+    {
+        Actor enemy = getOneIntersectingObject(Zombie.class);
+        if(getWorld() != null && enemy != null )
+        {
+            Welten w = (Welten) getWorld();
+            w.subtractHealth(10);
+            collisionCountdown = 20;
+        }
+        Actor mun = getOneIntersectingObject(Munition.class);
+        if (getWorld() != null && mun != null)
+        {
+            ammo = ammo + 1;
+            getWorld().removeObject(mun);
+            ((Welten) getWorld()).updateAmmo(ammo, bullets);
+        }
+       
+    }
+    
+    public void footprint()
+    {
+        if (animationCounter % 6 == 0) 
+        {
+            getWorld().addObject(new Footprint(survivorRotation), getX(), getY());
+        }
+    }
+    
+    public void reload()
+    {
+        if(Greenfoot.isKeyDown("R") && ammo > 0 && bullets < 10)
+        {
+            ammo = ammo - 1;
+            bullets = 10;
+            ((Welten) getWorld()).updateAmmo(ammo, bullets);
+            getWorld().addObject(new LeeresMagazin(survivorRotation), getX(), getY());
+        }
+    }
+    
+    public void setSpeed(int i)
+    {
+        speed = i;
     }
 }

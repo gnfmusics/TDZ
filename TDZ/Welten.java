@@ -14,6 +14,13 @@ public class Welten extends World
     public static int screenH = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     public static int weltW = (int) (screenW*0.75);
     public static int weltH = (int) (screenH*0.75);
+    private HealthBar healthbar;
+    private AmmoBar ammobar;
+    private Info info;
+    public int abstand = 27; //muss 27
+
+    
+   
     
     /**
      * Größe des Bildschirms * 0.75.
@@ -23,6 +30,9 @@ public class Welten extends World
      * Barsaumo:    Verrechnung der Koordinaten mit dem Skalierungsfaktor:
      *              500x500 -> 1000x1000 = Faktor 2
      *              -> Urpsrungskoordinate mit Faktor 2 multiplizieren
+     *              
+     *              
+     * 
      */
 
     /**
@@ -38,291 +48,371 @@ public class Welten extends World
 
         prepare();
     }
-
-    public void welt1(int a, int b)
+    
+    public void subtractHealth(int num)
+    {
+        int health = healthbar.updateHealthBar(num);
+        if( health <= 0 )
+        {
+            
+            
+            Greenfoot.stop();
+            removeObjects(getObjects(Survivor.class));
+            removeObjects(getObjects(Bullet.class));
+            removeObjects(getObjects(Zombie.class));
+            removeObjects(getObjects(Fels.class));
+            removeObjects(getObjects(HealthBar.class));
+            removeObjects(getObjects(Munition.class));
+            removeObjects(getObjects(AmmoBar.class));
+            removeObjects(getObjects(Footprint.class));
+            
+            
+            
+            this.setBackground("game_over.png");
+            
+        }
+    }
+    
+    public void addHealth(int num)
+    {
+        healthbar.updateHealthBar(-num);
+    }
+    
+    public void testWelt0()
+    {
+        for(int w = (weltW-abstand); w > -abstand; w = w - 55) 
+        {
+            addObject(new Fels(), w, abstand);
+            
+        }
+        for(int h = (weltH-abstand); h > -abstand; h = h - 55) 
+        {
+            addObject(new Fels(), abstand, h);
+            
+        }
+    }
+    
+    public void welt1()
     {
         //Welt oben links
         
-        Fels fels = new Fels();
-        addObject(fels, 30, 30);
-        Fels fels2 = new Fels();
-        addObject(fels2, 90, 30);
-        Fels fels3 = new Fels();
-        addObject(fels3, 150, 30);
-        Fels fels4 = new Fels();
-        addObject(fels4, 210, 30);
-        Fels fels5 = new Fels();
-        addObject(fels5, 270, 30);
-        Fels fels6 = new Fels();
-        addObject(fels6, 330, 30);
-        Fels fels7 = new Fels();
-        addObject(fels7, 390, 30);
-        Fels fels8 = new Fels();
-        addObject(fels8, 450, 30);
-        Fels fels9 = new Fels();
-        addObject(fels9, 510, 30);
-        Fels fels10 = new Fels();
-        addObject(fels10, 570, 30);
-        Fels fels11 = new Fels();
-        addObject(fels11, 30, 90);
-        Fels fels12 = new Fels();
-        addObject(fels12, 30, 150);
-        Fels fels13 = new Fels();
-        addObject(fels13, 30, 210);
-        Fels fels14 = new Fels();
-        addObject(fels14, 30, 270);
-        Fels fels15 = new Fels();
-        addObject(fels15, 30, 330);
-        Fels fels16 = new Fels();
-        addObject(fels16, 30, 390);
-        Fels fels17 = new Fels();
-        addObject(fels17, 30, 450);
-        Fels fels18 = new Fels();
-        addObject(fels18, 30, 510);
-        Fels fels19 = new Fels();
-        addObject(fels19, 30, 570);
+        //Objekte löschen
+        removeObjects(getObjects(Bullet.class)); 
+        removeObjects(getObjects(Zombie.class));
+        removeObjects(getObjects(Fels.class));
+        removeObjects(getObjects(HealthBar.class));
+        removeObjects(getObjects(Munition.class));
+        removeObjects(getObjects(AmmoBar.class));
+        removeObjects(getObjects(Footprint.class));
+        //Objekte löschen
+        
+        
+        //HIER OBJEKTE FÜR WELT
+        //Fels fels = new Fels();
+        //addObject(fels, 120, 100);
+        
+        for(int w = (weltW-abstand); w > -abstand; w = w - 55) 
+        {
+            addObject(new Fels(), w, abstand);
+            
+        }
+        for(int h = (weltH-abstand); h > -abstand; h = h - 55) 
+        {
+            addObject(new Fels(), abstand, h);
+            
+        }
+        //HIER OBJEKTE FÜR WELT
+        
+        //muss als letztes (Vordergrund)
+        healthbar = new HealthBar();
+        addObject(healthbar, 40, 40);
+        
+        ammobar = new AmmoBar();
+        addObject(ammobar, 100, 70);
+        ammobar.schreibeAmmo();
+        //muss als letztes (Vordergrund)
 
     }
 
     public void welt2()
     {
         //Welt oben mitte
-        removeObjects(getObjects(Fels.class));
+        
+       //Objekte löschen
+        removeObjects(getObjects(Bullet.class)); 
         removeObjects(getObjects(Zombie.class));
+        removeObjects(getObjects(Fels.class));
+        removeObjects(getObjects(HealthBar.class));
+        removeObjects(getObjects(Munition.class));
+        removeObjects(getObjects(AmmoBar.class));
+        removeObjects(getObjects(Footprint.class));
+        //Objekte löschen
         
         
+        //HIER OBJEKTE FÜR WELT
+        //Fels fels = new Fels();
+        //addObject(fels, 725, 44);
         
-        Fels fels = new Fels();
-        addObject(fels, 30, 30);
-        Fels fels2 = new Fels();
-        addObject(fels2, 90, 30);
-        Fels fels3 = new Fels();
-        addObject(fels3, 150, 30);
-        Fels fels4 = new Fels();
-        addObject(fels4, 210, 30);
-        Fels fels5 = new Fels();
-        addObject(fels5, 270, 30);
-        Fels fels6 = new Fels();
-        addObject(fels6, 330, 30);
-        Fels fels7 = new Fels();
-        addObject(fels7, 390, 30);
-        Fels fels8 = new Fels();
-        addObject(fels8, 450, 30);
-        Fels fels9 = new Fels();
-        addObject(fels9, 510, 30);
-        Fels fels10 = new Fels();
-        addObject(fels10, 570, 30);
+        for(int w = (weltW-abstand); w > -abstand; w = w - 55) 
+        {
+            addObject(new Fels(), w, abstand);
+            
+        }
+        
+        //HIER OBJEKTE FÜR WELT
+        
+        //muss als letztes (Vordergrund)
+        healthbar = new HealthBar();
+        addObject(healthbar, 40, 40);
+        
+        ammobar = new AmmoBar();
+        addObject(ammobar, 100, 70);
+        ammobar.schreibeAmmo();
+        //muss als letztes (Vordergrund)
     }
 
-    public void welt3(int a, int b)
+    public void welt3()
     {
         //Welt oben rechts
-        Fels fels = new Fels();
-        addObject(fels, 30, 30);
-        Fels fels2 = new Fels();
-        addObject(fels2, 90, 30);
-        Fels fels3 = new Fels();
-        addObject(fels3, 150, 30);
-        Fels fels4 = new Fels();
-        addObject(fels4, 210, 30);
-        Fels fels5 = new Fels();
-        addObject(fels5, 270, 30);
-        Fels fels6 = new Fels();
-        addObject(fels6, 330, 30);
-        Fels fels7 = new Fels();
-        addObject(fels7, 390, 30);
-        Fels fels8 = new Fels();
-        addObject(fels8, 450, 30);
-        Fels fels9 = new Fels();
-        addObject(fels9, 510, 30);
-        Fels fels10 = new Fels();
-        addObject(fels10, 570, 30);
-        Fels fels11 = new Fels();
-        addObject(fels11, 570, 90);
-        Fels fels12 = new Fels();
-        addObject(fels12, 570, 150);
-        Fels fels13 = new Fels();
-        addObject(fels13, 570, 210);
-        Fels fels14 = new Fels();
-        addObject(fels14, 570, 270);
-        Fels fels15 = new Fels();
-        addObject(fels15, 570, 330);
-        Fels fels16 = new Fels();
-        addObject(fels16, 570, 390);
-        Fels fels17 = new Fels();
-        addObject(fels17, 570, 450);
-        Fels fels18 = new Fels();
-        addObject(fels18, 570, 510);
-        Fels fels19 = new Fels();
-        addObject(fels19, 570, 570);
+        
+        //Objekte löschen
+        removeObjects(getObjects(Bullet.class)); 
+        removeObjects(getObjects(Zombie.class));
+        removeObjects(getObjects(Fels.class));
+        removeObjects(getObjects(HealthBar.class));
+        removeObjects(getObjects(Munition.class));
+        removeObjects(getObjects(AmmoBar.class));
+        removeObjects(getObjects(Footprint.class));
+        //Objekte löschen
+        
+        
+        //HIER OBJEKTE FÜR WELT
+        for(int w = (weltW-abstand); w > -abstand; w = w - 55) 
+        {
+            addObject(new Fels(), w, abstand);
+            
+        }
+        for(int h = (weltH-abstand); h > -abstand; h = h - 55) 
+        {
+            addObject(new Fels(), weltW-abstand, h);
+            
+        }
+        //HIER OBJEKTE FÜR WELT
+        
+        //muss als letztes (Vordergrund)
+        healthbar = new HealthBar();
+        addObject(healthbar, 40, 40);
+        
+        ammobar = new AmmoBar();
+        addObject(ammobar, 100, 70);
+        ammobar.schreibeAmmo();
+        //muss als letztes (Vordergrund)
 
     }
 
-    public void welt4(int a, int b)
+    public void welt4()
     {
         //Welt mitte links
+        
+        //Objekte löschen
+        removeObjects(getObjects(Bullet.class)); 
+        removeObjects(getObjects(Zombie.class));
+        removeObjects(getObjects(Fels.class));
+        removeObjects(getObjects(HealthBar.class));
+        removeObjects(getObjects(Munition.class));
+        removeObjects(getObjects(AmmoBar.class));
+        removeObjects(getObjects(Footprint.class));
+        //Objekte löschen
+        
+        
+        //HIER OBJEKTE FÜR WELT
         Fels fels = new Fels();
-        addObject(fels, 30, 570);
-        Fels fels10 = new Fels();
-        addObject(fels10, 30, 30);
-        Fels fels11 = new Fels();
-        addObject(fels11, 30, 90);
-        Fels fels12 = new Fels();
-        addObject(fels12, 30, 150);
-        Fels fels13 = new Fels();
-        addObject(fels13, 30, 210);
-        Fels fels14 = new Fels();
-        addObject(fels14, 30, 270);
-        Fels fels15 = new Fels();
-        addObject(fels15, 30, 330);
-        Fels fels16 = new Fels();
-        addObject(fels16, 30, 390);
-        Fels fels17 = new Fels();
-        addObject(fels17, 30, 450);
-        Fels fels18 = new Fels();
-        addObject(fels18, 30, 510);
+        addObject(fels, 100, 402);
+        //HIER OBJEKTE FÜR WELT
+        
+        //muss als letztes (Vordergrund)
+        healthbar = new HealthBar();
+        addObject(healthbar, 40, 40);
+        
+        ammobar = new AmmoBar();
+        addObject(ammobar, 100, 70);
+        ammobar.schreibeAmmo();
+        //muss als letztes (Vordergrund)
     }
 
-    public void welt5(int a, int b)
+    public void welt5()
     {
         //Welt mitte mitte
+        
+        //Objekte löschen
+        removeObjects(getObjects(Bullet.class)); 
+        removeObjects(getObjects(Zombie.class));
+        removeObjects(getObjects(Fels.class));
+        removeObjects(getObjects(HealthBar.class));
+        removeObjects(getObjects(Munition.class));
+        removeObjects(getObjects(AmmoBar.class));
+        removeObjects(getObjects(Footprint.class));
+        //Objekte löschen
+        
+        
+        //HIER OBJEKTE FÜR WELT
+        Fels fels = new Fels();
+        addObject(fels, 842, 409);
+        fels.setLocation(721, 294);
+        Fels fels2 = new Fels();
+        addObject(fels2, 601, 403);
+        Fels fels3 = new Fels();
+        addObject(fels3, 727, 513);
+        Fels fels4 = new Fels();
+        addObject(fels4, 921, 411);
+        //HIER OBJEKTE FÜR WELT
+        
+        //muss als letztes (Vordergrund)
+        healthbar = new HealthBar();
+        addObject(healthbar, 40, 40);
+        
+        
+        ammobar = new AmmoBar();
+        addObject(ammobar, 100, 70);
+        ammobar.schreibeAmmo();
+        //muss als letztes (Vordergrund)
 
     }
 
-    public void welt6(int a, int b)
+    public void welt6()
     {
         //Welt mitte rechts
+        
+        //Objekte löschen
+        removeObjects(getObjects(Bullet.class)); 
+        removeObjects(getObjects(Zombie.class));
+        removeObjects(getObjects(Fels.class));
+        removeObjects(getObjects(HealthBar.class));
+        removeObjects(getObjects(Munition.class));
+        removeObjects(getObjects(AmmoBar.class));
+        removeObjects(getObjects(Footprint.class));
+        //Objekte löschen
+        
+        
+        //HIER OBJEKTE FÜR WELT
         Fels fels = new Fels();
-        addObject(fels, 570, 570);
-        Fels fels10 = new Fels();
-        addObject(fels10, 570, 30);
-        Fels fels11 = new Fels();
-        addObject(fels11, 570, 90);
-        Fels fels12 = new Fels();
-        addObject(fels12, 570, 150);
-        Fels fels13 = new Fels();
-        addObject(fels13, 570, 210);
-        Fels fels14 = new Fels();
-        addObject(fels14, 570, 270);
-        Fels fels15 = new Fels();
-        addObject(fels15, 570, 330);
-        Fels fels16 = new Fels();
-        addObject(fels16, 570, 390);
-        Fels fels17 = new Fels();
-        addObject(fels17, 570, 450);
-        Fels fels18 = new Fels();
-        addObject(fels18, 570, 510);
+        addObject(fels, 1327, 396);
+        //HIER OBJEKTE FÜR WELT
+        
+        //muss als letztes (Vordergrund)
+        healthbar = new HealthBar();
+        addObject(healthbar, 40, 40);
+        
+        ammobar = new AmmoBar();
+        addObject(ammobar, 100, 70);
+        ammobar.schreibeAmmo();
+        //muss als letztes (Vordergrund)
     }
 
-    public void welt7(int a, int b)
+    public void welt7()
     {
         //Welt unten links
-        Fels fels = new Fels();
-        addObject(fels, 30, 570);
-        Fels fels2 = new Fels();
-        addObject(fels2, 90, 570);
-        Fels fels3 = new Fels();
-        addObject(fels3, 150, 570);
-        Fels fels4 = new Fels();
-        addObject(fels4, 210, 570);
-        Fels fels5 = new Fels();
-        addObject(fels5, 270, 570);
-        Fels fels6 = new Fels();
-        addObject(fels6, 330, 570);
-        Fels fels7 = new Fels();
-        addObject(fels7, 390, 570);
-        Fels fels8 = new Fels();
-        addObject(fels8, 450, 570);
-        Fels fels9 = new Fels();
-        addObject(fels9, 510, 570);
-        Fels fels10 = new Fels();
-        addObject(fels10, 30, 30);
-        Fels fels11 = new Fels();
-        addObject(fels11, 30, 90);
-        Fels fels12 = new Fels();
-        addObject(fels12, 30, 150);
-        Fels fels13 = new Fels();
-        addObject(fels13, 30, 210);
-        Fels fels14 = new Fels();
-        addObject(fels14, 30, 270);
-        Fels fels15 = new Fels();
-        addObject(fels15, 30, 330);
-        Fels fels16 = new Fels();
-        addObject(fels16, 30, 390);
-        Fels fels17 = new Fels();
-        addObject(fels17, 30, 450);
-        Fels fels18 = new Fels();
-        addObject(fels18, 30, 510);
-        Fels fels19 = new Fels();
-        addObject(fels19, 570, 570);
+        
+        //Objekte löschen
+        removeObjects(getObjects(Bullet.class)); 
+        removeObjects(getObjects(Zombie.class));
+        removeObjects(getObjects(Fels.class));
+        removeObjects(getObjects(HealthBar.class));
+        removeObjects(getObjects(Munition.class));
+        removeObjects(getObjects(AmmoBar.class));
+        removeObjects(getObjects(Footprint.class));
+        //Objekte löschen
+        
+        
+        //HIER OBJEKTE FÜR WELT
+        for(int w = (weltW-abstand); w > -abstand; w = w - 55) 
+        {
+            addObject(new Fels(), w, weltH-abstand);
+            
+        }
+        for(int h = (weltH-abstand); h > -abstand; h = h - 55) 
+        {
+            addObject(new Fels(), abstand, h);
+            
+        }
+        //HIER OBJEKTE FÜR WELT
+        
+        //muss als letztes (Vordergrund)
+        healthbar = new HealthBar();
+        addObject(healthbar, 40, 40);
+        
+        ammobar = new AmmoBar();
+        addObject(ammobar, 100, 70);
+        ammobar.schreibeAmmo();
+        //muss als letztes (Vordergrund)
     }
 
-    public void welt8(int a, int b)
+    public void welt8()
     {
         //Welt unten mitte
-        Fels fels = new Fels();
-        addObject(fels, 30, 570);
+        
+        //Objekte löschen
+        removeObjects(getObjects(Bullet.class)); 
+        removeObjects(getObjects(Zombie.class));
+        removeObjects(getObjects(Fels.class));
+        removeObjects(getObjects(HealthBar.class));
+        removeObjects(getObjects(Munition.class));
+        removeObjects(getObjects(AmmoBar.class));
+        removeObjects(getObjects(Footprint.class));
+        //Objekte löschen
+        
+        
+        //HIER OBJEKTE FÜR WELT
         Fels fels2 = new Fels();
-        addObject(fels2, 90, 570);
-        Fels fels3 = new Fels();
-        addObject(fels3, 150, 570);
-        Fels fels4 = new Fels();
-        addObject(fels4, 210, 570);
-        Fels fels5 = new Fels();
-        addObject(fels5, 270, 570);
-        Fels fels6 = new Fels();
-        addObject(fels6, 330, 570);
-        Fels fels7 = new Fels();
-        addObject(fels7, 390, 570);
-        Fels fels8 = new Fels();
-        addObject(fels8, 450, 570);
-        Fels fels9 = new Fels();
-        addObject(fels9, 510, 570);
-        Fels fels10 = new Fels();
-        addObject(fels10, 570, 570);
+        addObject(fels2, 709, 729);
+        //HIER OBJEKTE FÜR WELT
+        
+        //muss als letztes (Vordergrund)
+        healthbar = new HealthBar();
+        addObject(healthbar, 40, 40);
+        
+        ammobar = new AmmoBar();
+        addObject(ammobar, 100, 70);
+        ammobar.schreibeAmmo();
+        //muss als letztes (Vordergrund)
     }
 
-    public void welt9(int a, int b)
+    public void welt9()
     {
         //Welt unten rechts
-        Fels fels = new Fels();
-        addObject(fels, 30, 570);
-        Fels fels2 = new Fels();
-        addObject(fels2, 90, 570);
-        Fels fels3 = new Fels();
-        addObject(fels3, 150, 570);
-        Fels fels4 = new Fels();
-        addObject(fels4, 210, 570);
-        Fels fels5 = new Fels();
-        addObject(fels5, 270, 570);
-        Fels fels6 = new Fels();
-        addObject(fels6, 330, 570);
-        Fels fels7 = new Fels();
-        addObject(fels7, 390, 570);
-        Fels fels8 = new Fels();
-        addObject(fels8, 450, 570);
-        Fels fels9 = new Fels();
-        addObject(fels9, 510, 570);
-        Fels fels10 = new Fels();
-        addObject(fels10, 570, 30);
-        Fels fels11 = new Fels();
-        addObject(fels11, 570, 90);
-        Fels fels12 = new Fels();
-        addObject(fels12, 570, 150);
-        Fels fels13 = new Fels();
-        addObject(fels13, 570, 210);
-        Fels fels14 = new Fels();
-        addObject(fels14, 570, 270);
-        Fels fels15 = new Fels();
-        addObject(fels15, 570, 330);
-        Fels fels16 = new Fels();
-        addObject(fels16, 570, 390);
-        Fels fels17 = new Fels();
-        addObject(fels17, 570, 450);
-        Fels fels18 = new Fels();
-        addObject(fels18, 570, 510);
-        Fels fels19 = new Fels();
-        addObject(fels19, 570, 570);
+        
+        //Objekte löschen
+        removeObjects(getObjects(Bullet.class)); 
+        removeObjects(getObjects(Zombie.class));
+        removeObjects(getObjects(Fels.class));
+        removeObjects(getObjects(HealthBar.class));
+        removeObjects(getObjects(Munition.class));
+        removeObjects(getObjects(AmmoBar.class));
+        removeObjects(getObjects(Footprint.class));
+        //Objekte löschen
+        
+        
+        //HIER OBJEKTE FÜR WELT
+        for(int w = (weltW-abstand); w > -abstand; w = w - 55) 
+        {
+            addObject(new Fels(), w, weltH-abstand);
+            
+        }
+        for(int h = (weltH-abstand); h > -abstand; h = h - 55) 
+        {
+            addObject(new Fels(), weltW-abstand, h);
+            
+        }
+        //HIER OBJEKTE FÜR WELT
+        
+        //muss als letztes (Vordergrund)
+        healthbar = new HealthBar();
+        addObject(healthbar, 40, 40);
+        
+        ammobar = new AmmoBar();
+        addObject(ammobar, 100, 70);
+        ammobar.schreibeAmmo();
+        //muss als letztes (Vordergrund)
     }
 
     /**
@@ -334,5 +424,26 @@ public class Welten extends World
 
         Survivor survivor = new Survivor();
         addObject(survivor, (weltW/2), (weltH/2));
+
+        healthbar = new HealthBar();
+        addObject(healthbar, 40, 40);
+
+        ammobar = new AmmoBar();
+        addObject(ammobar, 100, 70);
+        ammobar.schreibeAmmo();
+
+        info = new Info();
+        addObject(info, 300, 200);
+        info.schreibeInfo();
+        
+        setPaintOrder(Survivor.class, Zombie.class, Bullet.class);
     }
+    
+    public void updateAmmo(int a, int b)
+    {
+        ammobar.setAmmo(a);
+        ammobar.setBullets(b);
+        ammobar.schreibeAmmo();
+    }
+  
 }
